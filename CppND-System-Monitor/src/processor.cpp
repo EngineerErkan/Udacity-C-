@@ -16,8 +16,7 @@ float Processor::Utilization() {
   
   bool curr_util = true;
   if (curr_util){
-//     std::cout << "util:" << util_jiffies << " prev:" << util_jiffies_prev << " substruct:" << util_jiffies-util_jiffies_prev << std::endl;
-//     std::cout << "util:" << total_jiffies << " prev:" << total_jiffies_prev << " substruct:" << total_jiffies-total_jiffies_prev << std::endl;
+;
     usage = (util_jiffies-util_jiffies_prev)/(total_jiffies-total_jiffies_prev);
     total_jiffies_prev = total_jiffies;
     util_jiffies_prev = util_jiffies;
