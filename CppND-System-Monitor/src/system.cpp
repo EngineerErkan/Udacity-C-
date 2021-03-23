@@ -12,7 +12,7 @@ using std::set;
 using std::size_t;
 using std::string;
 using std::vector;
-
+using namespace std;
 // TODO: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
@@ -23,21 +23,21 @@ vector<Process>& System::Processes() {
   for (int pid : pids){
 //   	std::cout << "pids: " << pids[i] << std::endl;
     Process p(pid);
-    processes_.push_back(p);
+    processes_.emplace_back (p);
   }
-  std::sort(processes_.begin(), processes_.end());
+  sort(processes_.rbegin(), processes_.rend());
   return processes_; 
 }
 
 
 // TODO: Return the system's kernel identifier (string)
-std::string System::Kernel() { return LinuxParser::Kernel(); }
+string System::Kernel() { return LinuxParser::Kernel(); }
 
 // TODO: Return the system's memory utilization
 float System::MemoryUtilization() { return LinuxParser::MemoryUtilization(); }
 
 // TODO: Return the operating system name
-std::string System::OperatingSystem() { return LinuxParser::OperatingSystem(); }
+string System::OperatingSystem() { return LinuxParser::OperatingSystem(); }
 
 // TODO: Return the number of processes actively running on the system
 int System::RunningProcesses() { return LinuxParser::RunningProcesses(); }

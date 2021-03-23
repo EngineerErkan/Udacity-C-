@@ -127,21 +127,26 @@ long LinuxParser::ActiveJiffies(int pid) {
   return total_clk;}
 
 // TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { 
-  string line, cpu, cpu_time;
-  vector<string> cpu_utilizations;
+vector<string> LinuxParser::CpuUtilization() {
+  vector<string> cpu_fields{"0", "0", "0", "0", "0", "0", "0", "0"};
+  string line;
+  string value;
   std::ifstream filestream(kProcDirectory + kStatFilename);
-
   if (filestream.is_open()) {
-    std::getline(filestream, line);
+    std::getline(filestream, line); 
     std::istringstream linestream(line);
-    linestream  >> cpu;
-
-    while (linestream >> cpu_time) {
-      cpu_utilizations.emplace_back(cpu_time);
+    if(linestream >> value){
+      int i = 0;
+      while(linestream >> value){
+        if(i > 7){
+          break;
+        } 
+        cpu_fields[i] = value;
+        ++i;
+      }
     }
   }
-  return cpu_utilizations;
+  return cpu_fields;
 }
 
 // TODO: Read and return the total number of processes
@@ -253,21 +258,19 @@ string LinuxParser::User(int pid) {
 
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid) {
-  long int uptime{0};
-  string token;
-  std::ifstream filestream(LinuxParser::kProcDirectory + to_string(pid) +
-                       LinuxParser::kStatFilename);
-
-  if (filestream.is_open()) {
-    int i = 0;
-    while (filestream >> token) {
-      if (i == 13) {
-        uptime = stol(token) / sysconf(_SC_CLK_TCK);
-        return uptime;
-      }
-      i++;
+long LinuxParser::UpTime(int pid) { 
+  string value, line;
+  long int starttime, uptime;
+  vector<string> stat_list;
+  std::ifstream stream(kProcDirectory + std::to_string(pid) + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    while (linestream >> value) {
+			stat_list.push_back(value);
+        }
     }
-  }
+  starttime = std::stol(stat_list[21])/sysconf(_SC_CLK_TCK);
+  uptime =  LinuxParser::UpTime() - starttime;
   return uptime;
 }
