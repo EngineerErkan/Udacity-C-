@@ -16,7 +16,7 @@ float Processor::Utilization() {
   
   bool curr_util = true;
   if (curr_util){
-;
+
     usage = (util_jiffies-util_jiffies_prev)/(total_jiffies-total_jiffies_prev);
     total_jiffies_prev = total_jiffies;
     util_jiffies_prev = util_jiffies;
