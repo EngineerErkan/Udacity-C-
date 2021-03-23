@@ -1,7 +1,7 @@
 #include "processor.h"
 
 // TODO: Return the aggregate CPU utilization
-float Processor::Utilization() { 
+double Processor::Utilization() { 
   std::vector<std::string> jiffies_list = LinuxParser::CpuUtilization();
   
   for (size_t i{0}; i<jiffies_list.size();i++){
