@@ -107,24 +107,24 @@ long LinuxParser::UpTime() {
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid) { 
-  string value, line;
-  long total_clk;
-  vector<string> stat_list;
-  std::ifstream stream(kProcDirectory + std::to_string(pid) + kStatFilename);
-  if (stream.is_open()) {
-    std::getline(stream, line);
-    std::istringstream linestream(line);
-    while (linestream >> value) {
-			stat_list.push_back(value);
-        }
+long LinuxParser::ActiveJiffies(int pid) {
+  string line;
+  string var;
+  string utime, stime, cutime, cstime; 
+  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
+  if (filestream.is_open()) {
+    while (std::getline(filestream, line)) {
+      std::istringstream linestream(line);
+      for(int i = 1; i < 14; i++) {
+        linestream >> var; 
+      }
+      linestream >> utime >> stime >> cutime >> cstime; 
+      long totaltime = stol(utime) + stol(stime) + stol(cutime) + stol(cstime);
+      return totaltime;
     }
-  long int utime{std::stol(stat_list[13])};
-  long int stime{std::stol(stat_list[14])};
-  long int cutime{std::stol(stat_list[15])};
-  long int cstime{std::stol(stat_list[16])};
-  total_clk = (utime + stime + cutime + cstime);
-  return total_clk;}
+  }
+return -1;
+}
 
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() {
