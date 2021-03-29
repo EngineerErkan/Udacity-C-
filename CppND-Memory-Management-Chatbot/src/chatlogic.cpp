@@ -156,7 +156,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             //GraphEdge *edge = new GraphEdge(id);
                             std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
                           	//edge->SetChildNode(*childNode);
-                          //edge->SetParentNode(*parentNode);                          
+                          	//edge->SetParentNode(*parentNode);                          
                           //_edges.push_back(edge)
                             edge->SetChildNode(childNode[0].get());
                           edge->SetParentNode(parentNode[0].get());

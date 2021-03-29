@@ -1,9 +1,9 @@
 #ifndef GRAPHNODE_H_
 #define GRAPHNODE_H_
-#include <memory>
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "chatbot.h"
 
 
@@ -17,11 +17,11 @@ private:
     ////
 
     // data handles (owned)
-    std::vector <std::unique_ptr <GraphEdge >> _childEdges;  // edges to subsequent nodes
+    std::vector<std::unique_ptr <GraphEdge>> _childEdges;  // edges to subsequent nodes
 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
-    ChatBot *_chatBot;
+    std::unique_ptr<ChatBot> _chatBot;
 
     ////
     //// EOF STUDENT CODE

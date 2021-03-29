@@ -32,8 +32,8 @@ public:
     ~ChatBot();                                 // Destructor
     ChatBot(const ChatBot& source);             // Constructor
     ChatBot(ChatBot&& source);                  // Move constructor
-    ChatBot& operator=(const ChatBot& source);  // Assignment 
     ChatBot& operator=(ChatBot&& source);       // Move assignment operator
+	ChatBot& operator=(const ChatBot& source);  // Assignment 
     ////
     //// EOF STUDENT CODE
 

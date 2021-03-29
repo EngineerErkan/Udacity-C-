@@ -82,7 +82,7 @@ ChatBot::ChatBot(ChatBot &&source)                   //move constructor for rule
 
 ChatBot &ChatBot::operator=(ChatBot &&source)        //move assignment operator overload for rule of 5.
 {
-    std::cout << "ChatBot Move Assignment\n";
+    std::cout << "ChatBot Move Assign operator\n";
     if (this == &source)
         return *this;
     
@@ -90,9 +90,11 @@ ChatBot &ChatBot::operator=(ChatBot &&source)        //move assignment operator 
 
     _image = source._image;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+
     _rootNode = source._rootNode;
     _currentNode = source._currentNode;
-    source._image = nullptr;
+    source._image = NULL;
     source._chatLogic = nullptr;
     source._currentNode = nullptr;
     source._rootNode = nullptr;
