@@ -116,11 +116,10 @@ int main()
     // create and connect intersections and streets
     std::vector<std::shared_ptr<Street>> streets;
     std::vector<std::shared_ptr<Intersection>> intersections;
-    std::vector<std::shared_ptr<Vehicle>> vehicles;
+	std::vector<std::shared_ptr<Vehicle>> vehicles;
     std::string backgroundImg;
     int nVehicles = 6;
     createTrafficObjects_Paris(streets, intersections, vehicles, backgroundImg, nVehicles);
-
     /* PART 2 : simulate traffic objects */
 
     // simulate intersection
