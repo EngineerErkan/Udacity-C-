@@ -31,9 +31,9 @@ public:
     //// Rule of Five
     ~ChatBot();                                 // Destructor
     ChatBot(const ChatBot& source);             // Constructor
+   	ChatBot& operator=(const ChatBot& source);  // Assignment 	
     ChatBot(ChatBot&& source);                  // Move constructor
     ChatBot& operator=(ChatBot&& source);       // Move assignment operator
-	ChatBot& operator=(const ChatBot& source);  // Assignment 
     ////
     //// EOF STUDENT CODE
 
