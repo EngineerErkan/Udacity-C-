@@ -82,7 +82,7 @@ ChatBot::ChatBot(ChatBot &&source)                   //move constructor for rule
 
 ChatBot &ChatBot::operator=(ChatBot &&source)        //move assignment operator overload for rule of 5.
 {
-    std::cout << "ChatBot Move Assign operator\n";
+    std::cout << "ChatBot Move Assignment Operator\n";
     if (this == &source)
         return *this;
     
