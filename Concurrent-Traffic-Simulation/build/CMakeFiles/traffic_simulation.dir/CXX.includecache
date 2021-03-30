@@ -89,6 +89,10 @@ thread
 -
 chrono
 -
+queue
+-
+future
+-
 
 /home/workspace/Concurrent-Traffic-Simulation/src/TrafficLight.h
 mutex
