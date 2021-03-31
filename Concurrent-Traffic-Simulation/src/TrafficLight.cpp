@@ -30,7 +30,8 @@ void MessageQueue<T>::send(T &&Message)
     // FP.4a : The method send should use the mechanisms std::lock_guard<std::mutex> 
     // as well as _condition.notify_one() to add a new message to the queue and afterwards send a notification.
   	std::lock_guard<std::mutex> uLock(_mutex);
-  	_messages.pop_back(std::move(Message));
+  	_queue.clear( )
+  	_messages.push_back(std::move(Message));
     _condition.notify_one();
 }
 */
@@ -49,7 +50,7 @@ void TrafficLight::waitForGreen()
     // runs and repeatedly calls the receive function on the message queue. 
     // Once it receives TrafficLightPhase::green, the method returns.
   	while(1){
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(1));
         if (msg_queue_->receive() == green) { return; }
     }
 }
@@ -99,7 +100,7 @@ void TrafficLight::cycleThroughPhases()
             /* Send an update to the message queue and wait for it to be sent */
 			auto msg = _currentPhase;
 			auto is_sent = std::async(std::launch::async, &MessageQueue<TrafficLightPhase>::send, msg_queue_, std::move(msg));
-			is_sent.wait();
+			sent.wait();
 
 			/* Reset stop watch for next cycle */
 			lastUpdate = std::chrono::system_clock::now();
